@@ -1,0 +1,40 @@
+[package]
+name = "tondi-client"
+
+authors       = ["Avatolabs"]
+description   = "Tondi API client library"
+documentation = "https://docs.rs/bp-tondi/"
+edition       = "2024"
+homepage      = "https://github.com/Aavatolabs/bp-tondi-client"
+keywords      = ["Tondi"]
+license       = "MIT"
+readme        = "README.md"
+repository    = "https://github.com/Aavatolabs/bp-tondi-client"
+version       = "0.12.0-rc.1"
+
+
+[features]
+default = []
+
+
+[dependencies]
+log               = { version = "0.4" }
+nill              = { version = "1.1.0" }
+thiserror         = { version = "2.0" }
+tokio             = { version = "1", features = ["fs", "macros", "rt", "rt-multi-thread", "sync"] }
+tondi-grpc-client = { version = "0.17.0", git = "ssh://git@github.com/AvatoLabs/Tondi.git", branch = "blake3-hasher" }
+
+
+[dev-dependencies]
+
+
+[workspace.lints.clippy]
+as_conversions = "warn"
+pedantic       = "warn"
+
+
+[profile.release]
+codegen-units = 1
+lto           = true
+opt-level     = 3
+strip         = "symbols"
