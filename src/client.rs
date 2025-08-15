@@ -1,9 +1,6 @@
 use std::ops::Deref;
 
-pub use tondi_grpc_client::{
-    GrpcClient,
-    rpc_core::{RpcBlock, api::rpc::RpcApi, model::hash::RpcHash},
-};
+use tondi_grpc_client::GrpcClient;
 
 use crate::error::Result;
 
@@ -21,11 +18,6 @@ impl TondiClient {
 
     pub const fn client(&self) -> &GrpcClient {
         &self.inner
-    }
-
-    pub async fn get_block(&self, hash: RpcHash) -> Result<RpcBlock> {
-        let block = self.inner.get_block(hash, true).await?;
-        Ok(block)
     }
 }
 
