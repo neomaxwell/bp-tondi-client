@@ -1,6 +1,11 @@
 use std::ops::Deref;
 
-pub use tondi_grpc_client::{GrpcClient, error::Result, rpc_core::api::rpc::RpcApi};
+pub use tondi_grpc_client::{
+    GrpcClient,
+    rpc_core::{RpcBlock, api::rpc::RpcApi, model::hash::RpcHash},
+};
+
+use crate::error::Result;
 
 #[derive(Debug, Clone)]
 pub struct TondiClient {
@@ -14,8 +19,13 @@ impl TondiClient {
         Ok(Self { inner })
     }
 
-    pub fn client(&self) -> &GrpcClient {
+    pub const fn client(&self) -> &GrpcClient {
         &self.inner
+    }
+
+    pub async fn get_block(&self, hash: RpcHash) -> Result<RpcBlock> {
+        let block = self.inner.get_block(hash, true).await?;
+        Ok(block)
     }
 }
 

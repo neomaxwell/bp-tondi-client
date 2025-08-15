@@ -9,10 +9,10 @@ pub enum Error {
     StdIoError(#[from] StdIoError),
 
     #[error(transparent)]
-    GrpcClientError(#[from] GrpcClientError),
+    RpcCoreError(#[from] RpcCoreError),
 
     #[error(transparent)]
-    RpcCoreError(#[from] RpcCoreError),
+    GrpcClientError(#[from] GrpcClientError),
 
     #[error("{0}")]
     Generic(String),
